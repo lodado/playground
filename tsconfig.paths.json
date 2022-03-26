@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@Image/*": ["src/images/*"],
+      "@Redux/*": ["src/javascripts/redux/*"],
+      "@Component/*": ["src/javascripts/components/*"],
+      "@Global/*": ["src/javascripts/global/*"],
+      "@Hook/*": ["src/javascripts/hooks/*"],
+      "@Style/*": ["src/stylesheets/*"]
+    }
+  }
+}
