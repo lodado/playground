@@ -1,3 +1,0 @@
-{
-  "/carClasses/:carClassId": "/carClass?carClassId=:carClassId"
-}
