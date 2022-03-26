@@ -3,7 +3,7 @@
     "baseUrl": "./",
     "paths": {
       "@Image/*": ["src/images/*"],
-      "@State/*": ["src/javascripts/state/*"],
+      "@State/*": ["src/javascripts/global/state/*"],
       "@Component/*": ["src/javascripts/components/*"],
       "@Global/*": ["src/javascripts/global/*"],
       "@Hook/*": ["src/javascripts/hooks/*"]

@@ -1,16 +1,24 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { RecoilRoot } from 'recoil';
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query';
 
-import rootStore from '@Redux/index';
-import { CarListPage } from '@Component/page/list';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Login from '@Component/pages/Login';
+
+const queryClient = new QueryClient();
 
 export function AppRouter(): JSX.Element {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Navigate replace to="/list" />} />
-        <Route path="/list" element={<CarListPage />} />
+        <Route path="/list" element={<Login />} />
       </Routes>
     </Router>
   );
@@ -18,8 +26,10 @@ export function AppRouter(): JSX.Element {
 
 export default function App() {
   return (
-    <Provider store={rootStore}>
-      <AppRouter />
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <RecoilRoot>
+        <AppRouter />
+      </RecoilRoot>
+    </QueryClientProvider>
   );
 }
