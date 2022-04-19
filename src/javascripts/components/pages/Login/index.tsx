@@ -9,7 +9,6 @@ const request = repositoryFactory.get('ex');
 const req = async () => {
   try {
     const dt = await request.get();
-    console.log(dt);
     return dt.data.id;
   } catch (e) {
     throw new Error();
