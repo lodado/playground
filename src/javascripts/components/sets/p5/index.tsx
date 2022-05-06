@@ -34,5 +34,5 @@ export default function Canvas({ sketch, vector }: CanvasType) {
 
 Canvas.defaultProps = {
   sketch: defaultSketch,
-  vector: new Vector({ x: 0, y: 0, dx: 1, dy: 2.8 }),
+  vector: new Vector({ x: 0, y: 0 }),
 };

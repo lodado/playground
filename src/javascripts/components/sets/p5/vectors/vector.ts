@@ -1,8 +1,8 @@
+const [WIDTH, HEIGHT] = [400, 400]; // copy & paste시 global에 넣으세요
+
 interface VectorType {
   x?: number;
   y?: number;
-  dx?: number;
-  dy?: number;
 }
 
 export default class Vector {
@@ -10,54 +10,77 @@ export default class Vector {
 
   y: number;
 
-  dx: number;
+  dx = 0;
 
-  dy: number;
+  dy = 0;
 
-  attribute: VectorType;
-
-  constructor({ x, y, dx, dy }: VectorType) {
-    this.setAttribute({ x, y, dx, dy });
+  constructor({ x, y }: VectorType) {
+    this.setAttribute({ x, y });
   }
 
   setAttribute(attribute: VectorType) {
-    const { x, y, dx, dy } = attribute;
+    const { x, y } = attribute;
 
     if (x !== undefined) {
       this.x = x;
+      this.dx += x;
     }
 
     if (y !== undefined) {
       this.y = y;
+      this.dy += y;
+    }
+  }
+
+  setAttributeEdge(attribute: VectorType) {
+    let { x, y } = attribute;
+
+    if (x > WIDTH) {
+      x = 0;
+    } else if (x < 0) {
+      x = WIDTH;
     }
 
-    if (dx !== undefined) {
-      this.dx = dx;
+    if (y > HEIGHT) {
+      y = 0;
+    } else if (y < 0) {
+      y = HEIGHT;
     }
 
-    if (dy !== undefined) {
-      this.dy = dy;
-    }
+    this.setAttribute({ ...attribute, x, y });
   }
 
   // add vectors
   add(vector: VectorType) {
-    this.setAttribute({ x: this.x + vector.dx, y: this.y + vector.dy });
+    this.setAttribute({ x: this.x + vector.x, y: this.y + vector.y });
   }
 
   // subtract vectors
   sub(vector: VectorType) {
-    this.setAttribute({ x: this.x - vector.dx, y: this.y - vector.dy });
+    this.setAttribute({ x: this.x - vector.x, y: this.y - vector.y });
+  }
+
+  // scale the vector with multiply
+  mul(value: number) {
+    this.setAttribute({ x: this.x * value, y: this.y * value });
   }
 
   // scale the vector with division
-  div() {}
+  div(value: number) {
+    if (value !== 0) {
+      this.setAttribute({ x: Math.floor(this.x / value), y: Math.floor(this.y / value) });
+    }
+  }
 
-  // set the magnitude of a vector
-  setMag() {}
+  // get the magnitude of a vector
+  getMag() {
+    return Math.sqrt(this.x * this.x + this.y * this.y);
+  }
 
   // normalize the vector to a unit length of 1
-  normalize() {}
+  normalize() {
+    return { x: this.x / this.getMag(), y: this.getMag() };
+  }
 
   // rotate a 2D vector by an angle
   rotate() {}

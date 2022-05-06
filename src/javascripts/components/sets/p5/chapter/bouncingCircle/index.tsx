@@ -5,7 +5,13 @@ import React, { useMemo } from 'react';
 import Vector from '../../vectors/vector';
 import Canvas from '../..';
 
+function update(vector: Vector, velocity: Vector) {
+  vector.add(velocity);
+}
+
 function sketch(vector) {
+  const velocity = new Vector({ x: 1, y: 2.8 });
+
   return function (p) {
     p.setup = function () {
       p.createCanvas(400, 400);
@@ -17,13 +23,13 @@ function sketch(vector) {
 
       p.ellipse(vector.x, vector.y, 70, 70);
       if (vector.x > 400 || vector.x < 0) {
-        vector.setAttribute({ dx: vector.dx * -1 });
+        velocity.setAttribute({ x: velocity.x * -1 });
       }
       if (vector.y > 400 || vector.y < 0) {
-        vector.setAttribute({ dy: vector.dy * -1 });
+        velocity.setAttribute({ y: velocity.y * -1 });
       }
 
-      vector.add(vector);
+      update(vector, velocity);
     };
   };
 }
@@ -36,6 +42,6 @@ export default function BouncingCircle({ vector }: BouncingCircleType) {
   return <Canvas sketch={sketch} vector={vector} />;
 }
 
-BouncingCircle.defaultProps = {
-  vector: new Vector({ x: 0, y: 0, dx: 1, dy: 2.8 }),
+BouncingCircle.defaultTypes = {
+  vector: new Vector({ x: 0, y: 0 }),
 };
