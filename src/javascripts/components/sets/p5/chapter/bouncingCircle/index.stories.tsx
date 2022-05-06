@@ -1,16 +1,16 @@
 import { ComponentMeta } from '@storybook/react';
 import React from 'react';
 
-import FlockingCanvas from './index';
+import BouncingCircle from './index';
 
 export default {
-  component: FlockingCanvas,
-  title: 'FlockingCanvas',
+  component: BouncingCircle,
+  title: 'BouncingCircle',
   decorators: [(story) => <>{story()}</>],
-} as ComponentMeta<typeof FlockingCanvas>;
+} as ComponentMeta<typeof BouncingCircle>;
 
 function Template(args) {
-  return <FlockingCanvas {...args} />;
+  return <BouncingCircle {...args} />;
 }
 
 export const Default = Template.bind({});
