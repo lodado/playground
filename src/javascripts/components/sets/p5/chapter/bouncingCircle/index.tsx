@@ -23,7 +23,7 @@ function sketch(p) {
       vector.dy *= -1;
     }
 
-    vector.add();
+    vector.add(vector);
   };
 }
 
