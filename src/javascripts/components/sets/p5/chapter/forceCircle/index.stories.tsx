@@ -11,7 +11,7 @@ export default {
 } as ComponentMeta<typeof ForceCircle>;
 
 function Template(args) {
-  return <ForceCircle vector={new Vector({ x: 150, y: 150 })} />;
+  return <ForceCircle vector={[new Vector({ x: 100, y: 150 }), new Vector({ x: 150, y: 150 })]} />;
 }
 
 export const Default = Template.bind({});

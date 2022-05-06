@@ -5,23 +5,23 @@ import React, { useMemo } from 'react';
 import Vector from '../../vectors/vector';
 import Canvas from '../..';
 
-let mass = 3;
-let velocity = new Vector({ x: 1, y: 1 });
-let gravity = new Vector({ x: 0, y: 0.2 });
-let wind = new Vector({ x: 0.3, y: 0 });
+const mass = 3;
+const velocity = [new Vector({ x: 1, y: 1 }), new Vector({ x: -1, y: 1 })];
+const gravity = new Vector({ x: 0, y: 0.02 });
+const wind = new Vector({ x: 0.3, y: 0 });
 
-function update(vector: Vector) {
-  velocity.add(gravity);
-  vector.add(velocity);
+function update(vector: Vector, index: number) {
+  velocity[index].add(gravity);
+  vector.add(velocity[index]);
 }
 
 // F = Ma
-function applyWindForce(force: Vector) {
+function applyWindForce(force: Vector, index: number) {
   const { x, y } = force;
   const f = new Vector({ x, y });
 
   f.div(mass);
-  velocity.add(f);
+  velocity[index].add(f);
 }
 
 function sketch(vector) {
@@ -34,16 +34,20 @@ function sketch(vector) {
     p.draw = function () {
       p.background(128);
 
-      p.ellipse(vector.x, vector.y, 70, 70);
-      if (vector.x >= 400 || vector.x < 0) {
-        velocity.setAttribute({ x: velocity.x * -1 });
-      }
-      if (vector.y >= 400 || vector.y < 0) {
-        velocity.setAttribute({ y: velocity.y * -1 });
-      }
+      if (vector.length > 1) {
+        vector.map((ele, index) => {
+          p.ellipse(ele.x, ele.y, 70, 70);
+          if (ele.x >= 400 || ele.x < 0) {
+            velocity[index].setAttribute({ x: velocity[index].x * -1 });
+          }
+          if (ele.y >= 400 || ele.y < 0) {
+            velocity[index].setAttribute({ y: velocity[index].y * -1 });
+          }
 
-      update(vector);
-      applyWindForce(wind);
+          update(ele, index);
+          applyWindForce(wind, index);
+        });
+      }
     };
   };
 }

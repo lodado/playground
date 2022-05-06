@@ -16,8 +16,8 @@ function defaultSketch(vector: Vector) {
 }
 
 interface CanvasType {
-  sketch?: (vector: Vector) => (p) => void;
-  vector?: Vector;
+  sketch?: (vector: Vector | Vector[]) => (p) => void;
+  vector?: Vector | Vector[];
 }
 
 export default function Canvas({ sketch, vector }: CanvasType) {
@@ -26,6 +26,7 @@ export default function Canvas({ sketch, vector }: CanvasType) {
 
   useEffect(() => {
     const p5Instance = new p5(sketch(vector), canvasRef.current);
+
     setCanvas(canvasRef.current);
   }, []);
 
