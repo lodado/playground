@@ -22,6 +22,8 @@ const rects = Array.from({ length: 16 }, (ele, index: number) => {
 const cursor = new Vector({ x: 50, y: 50 });
 const cursorVelocity = new Vector({ x: 0, y: 0, limit: 10 });
 
+let [x, y, r, theta] = [1, 1, 0, 0];
+
 function sketch(vector) {
   return function (p) {
     p.setup = function () {
@@ -80,6 +82,19 @@ function sketch(vector) {
       p.rect(cursor.x, cursor.y, 20, 10);
       p.rotate(angle3);
 
+      p.pop();
+
+      //소용돌이
+
+      p.push();
+      x = r * Math.cos(theta);
+      y = r * Math.sin(theta);
+      p.noStroke();
+      p.fill(0);
+      p.ellipse(x, y, 16, 16);
+
+      theta += 0.01;
+      r += 0.1;
       p.pop();
     };
   };
