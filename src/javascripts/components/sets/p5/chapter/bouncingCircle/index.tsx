@@ -9,6 +9,9 @@ function update(vector: Vector, velocity: Vector) {
   vector.add(velocity);
 }
 
+const cursor = new Vector({ x: 50, y: 50 });
+const cursorVelocity = new Vector({ x: 0, y: 0, limit: 100 });
+
 function sketch(vector) {
   const velocity = new Vector({ x: 1, y: 2.8 });
 
@@ -30,6 +33,17 @@ function sketch(vector) {
       }
 
       update(vector, velocity);
+
+      // 마우스 따라오는 공
+      const mouseVector = new Vector({ x: p.mouseX, y: p.mouseY });
+      mouseVector.sub(cursor);
+
+      mouseVector.normalize();
+      mouseVector.mul(0.1);
+
+      cursorVelocity.add(mouseVector);
+      cursor.add(cursorVelocity);
+      p.ellipse(cursor.x, cursor.y, 30, 30);
     };
   };
 }

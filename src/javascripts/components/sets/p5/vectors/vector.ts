@@ -3,6 +3,7 @@ const [WIDTH, HEIGHT] = [400, 400]; // copy & paste시 global에 넣으세요
 interface VectorType {
   x?: number;
   y?: number;
+  limit?: number;
 }
 
 export default class Vector {
@@ -14,12 +15,14 @@ export default class Vector {
 
   dy = 0;
 
-  constructor({ x, y }: VectorType) {
-    this.setAttribute({ x, y });
+  limit: undefined | number;
+
+  constructor({ x, y, limit }: VectorType) {
+    this.setAttribute({ x, y, limit });
   }
 
   setAttribute(attribute: VectorType) {
-    const { x, y } = attribute;
+    const { x, y, limit } = attribute;
 
     if (x !== undefined) {
       this.x = x;
@@ -27,6 +30,20 @@ export default class Vector {
 
     if (y !== undefined) {
       this.y = y;
+    }
+
+    if (limit !== undefined) {
+      this.limit = limit;
+    }
+
+    if (this.limit !== undefined) {
+      if (this.x >= Math.abs(this.limit)) {
+        this.x = this.limit * (this.x >= 0 ? 1 : -1);
+      }
+
+      if (this.y >= Math.abs(this.limit)) {
+        this.y = this.limit * (this.x >= 0 ? 1 : -1);
+      }
     }
   }
 
@@ -77,7 +94,7 @@ export default class Vector {
 
   // normalize the vector to a unit length of 1
   normalize() {
-    return { x: this.x / this.getMag(), y: this.getMag() };
+    return this.setAttribute({ x: this.x / this.getMag(), y: this.y / this.getMag() });
   }
 
   /* rotate a 2D vector by an angle
@@ -107,4 +124,8 @@ export default class Vector {
 
   // the cross product of two vectors (only relevant in three dimensions)
   cross() {}
+
+  tancent() {
+    return this.y / this.x;
+  }
 }

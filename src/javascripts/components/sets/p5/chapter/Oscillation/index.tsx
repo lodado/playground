@@ -10,7 +10,6 @@ function update(vector: Vector, velocity: Vector) {
 }
 
 const rotateSpeed = 0.01;
-let pg;
 
 let angle = 0;
 let velocity = 0;
@@ -19,6 +18,9 @@ let accelertation = 0.001;
 const rects = Array.from({ length: 16 }, (ele, index: number) => {
   return new Vector({ x: Math.random() * 100, y: Math.random() * 500 - 400 });
 });
+
+const cursor = new Vector({ x: 50, y: 50 });
+const cursorVelocity = new Vector({ x: 0, y: 0, limit: 100 });
 
 function sketch(vector) {
   return function (p) {
@@ -59,6 +61,11 @@ function sketch(vector) {
       // 각도로 회전
       p.ellipse(vector.x, vector.y, 30, 30);
       vector.rotate2D(rotateSpeed);
+
+      // 커서
+      const angle3 = Math.atan((p.mouseY - 200 - cursor.y) / (p.mouseX - 200 - cursor.x));
+
+      const mouseVector = new Vector({ x: p.mouseX - 200, y: p.mouseY - 200 });
     };
   };
 }
