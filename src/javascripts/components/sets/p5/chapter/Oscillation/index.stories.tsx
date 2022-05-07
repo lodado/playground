@@ -1,16 +1,16 @@
 import { ComponentMeta } from '@storybook/react';
 import React from 'react';
 
-import AngleLine from './index';
+import Oscillation from './index';
 
 export default {
-  component: AngleLine,
-  title: 'AngleLine',
+  component: Oscillation,
+  title: 'Oscillation',
   decorators: [(story) => <>{story()}</>],
-} as ComponentMeta<typeof AngleLine>;
+} as ComponentMeta<typeof Oscillation>;
 
 function Template(args) {
-  return <AngleLine {...args} />;
+  return <Oscillation {...args} />;
 }
 
 export const Default = Template.bind({});

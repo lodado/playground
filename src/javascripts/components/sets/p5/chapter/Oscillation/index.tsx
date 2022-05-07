@@ -1,6 +1,6 @@
-// https://natureofcode.com/book/chapter-1-vectors/
+// https://natureofcode.com/book/chapter-3-oscillation/
 
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import Vector from '../../vectors/vector';
 import Canvas from '../..';
@@ -20,7 +20,7 @@ const rects = Array.from({ length: 16 }, (ele, index: number) => {
 });
 
 const cursor = new Vector({ x: 50, y: 50 });
-const cursorVelocity = new Vector({ x: 0, y: 0, limit: 100 });
+const cursorVelocity = new Vector({ x: 0, y: 0, limit: 10 });
 
 function sketch(vector) {
   return function (p) {
@@ -35,6 +35,7 @@ function sketch(vector) {
 
       // push~pop 안에는 격리됨
       p.push();
+
       p.rotate(angle);
       p.line(-50, 0, 50, 0);
       p.ellipse(50, 0, 8, 8);
@@ -63,9 +64,23 @@ function sketch(vector) {
       vector.rotate2D(rotateSpeed);
 
       // 커서
-      const angle3 = Math.atan((p.mouseY - 200 - cursor.y) / (p.mouseX - 200 - cursor.x));
+      p.push();
 
-      const mouseVector = new Vector({ x: p.mouseX - 200, y: p.mouseY - 200 });
+      p.translate(-200, -200);
+      const mouseVector = new Vector({ x: p.mouseX, y: p.mouseY });
+
+      mouseVector.sub(cursor);
+      mouseVector.normalize();
+      mouseVector.mul(0.3);
+
+      cursorVelocity.add(mouseVector);
+      cursor.add(cursorVelocity);
+
+      const angle3 = Math.atan2(mouseVector.y, mouseVector.x);
+      p.rect(cursor.x, cursor.y, 20, 10);
+      p.rotate(angle3);
+
+      p.pop();
     };
   };
 }
