@@ -35,13 +35,13 @@ function sketch(vector) {
 }
 
 interface BouncingCircleType {
-  vector?: Vector;
+  vector?: Vector | Vector[];
 }
 
 export default function BouncingCircle({ vector }: BouncingCircleType) {
   return <Canvas sketch={sketch} vector={vector} />;
 }
 
-BouncingCircle.defaultTypes = {
+BouncingCircle.defaultProps = {
   vector: new Vector({ x: 0, y: 0 }),
 };

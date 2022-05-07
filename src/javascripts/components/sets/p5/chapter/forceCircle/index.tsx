@@ -53,13 +53,13 @@ function sketch(vector) {
 }
 
 interface ForceCircleType {
-  vector?: Vector;
+  vector?: Vector | Vector[];
 }
 
 export default function ForceCircle({ vector }: ForceCircleType) {
   return <Canvas sketch={sketch} vector={vector} />;
 }
 
-ForceCircle.defaultTypes = {
+ForceCircle.defaultProps = {
   vector: new Vector({ x: 0, y: 0 }),
 };

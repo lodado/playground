@@ -23,12 +23,10 @@ export default class Vector {
 
     if (x !== undefined) {
       this.x = x;
-      this.dx += x;
     }
 
     if (y !== undefined) {
       this.y = y;
-      this.dy += y;
     }
   }
 
@@ -82,8 +80,18 @@ export default class Vector {
     return { x: this.x / this.getMag(), y: this.getMag() };
   }
 
-  // rotate a 2D vector by an angle
-  rotate() {}
+  /* rotate a 2D vector by an angle
+    |cos -sin | x |
+    |sin  cos | y |
+  */
+  rotate2D(theta: number) {
+    const [x, y] = [this.x, this.y];
+
+    this.setAttribute({
+      x: Math.cos(theta) * x - Math.sin(theta) * y,
+      y: Math.sin(theta) * x + Math.cos(theta) * y,
+    });
+  }
 
   // linear interpolate to another vector
   lerp() {}
