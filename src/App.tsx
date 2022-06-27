@@ -1,12 +1,6 @@
 import React from 'react';
 import { RecoilRoot } from 'recoil';
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from '@Component/pages/Login';
