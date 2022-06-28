@@ -2,7 +2,11 @@ import React, { RefObject } from 'react';
 import styled from 'styled-components';
 
 interface StyledProps {
+  width: number;
+  height: number;
+
   color: string;
+
   backgroundColor: string;
   disabled?: unknown;
 }
@@ -21,7 +25,7 @@ interface Props<T> {
   width?: number;
   height?: number;
   color?: string;
-  type?: string | undefined;
+  type?: 'button' | 'submit' | 'reset';
   backgroundColor?: string;
   className?: T;
   customRef?: undefined | RefObject<HTMLButtonElement>;

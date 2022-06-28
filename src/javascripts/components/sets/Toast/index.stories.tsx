@@ -1,7 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import React from 'react';
 
-import StoryComponent from './index';
+import { ExampleComponent as StoryComponent } from './index';
 
 export default {
   component: StoryComponent,

@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 import useFadeIn from './useFadeIn';
 
@@ -22,7 +23,11 @@ interface Props {
   hoveredColor?: string;
 }
 
-const Container = styled.div<Props>`
+interface ToastProps extends Props {
+  isVisible: boolean;
+}
+
+const Container = styled.div<any>`
   display: inline-flex;
   position: absolute;
 
@@ -35,7 +40,6 @@ const Container = styled.div<Props>`
       return '';
     });
   }}
-
   visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
 
   width: 280px;
@@ -80,14 +84,63 @@ const XMarkImage = styled.button`
 
   &:hover {
     border-radius: 9px;
-    background: ${({ hoveredColor }) => hoveredColor};
+    background: ${({ hoveredColor }: { hoveredColor: string }) => hoveredColor};
 
     cursor: pointer;
     transition: background-color 205ms ease-in-out;
   }
 `;
 
+const Portal = document.querySelector('#root'); // 쓸때 변경
+
 export default function Toast({
+  text,
+  locate,
+  isVisible,
+  onClick,
+  translateX,
+  translateY,
+  delayTime,
+  animationTime,
+  color,
+  hoveredColor,
+}: ToastProps) {
+  return createPortal(
+    <Container
+      locate={locate}
+      isVisible={isVisible}
+      translateX={translateX}
+      translateY={translateY}
+      delayTime={delayTime}
+      animationTime={animationTime}
+      color={color}
+    >
+      {text}
+      <XMarkImage onClick={onClick} hoveredColor={hoveredColor}>
+        X
+      </XMarkImage>
+    </Container>,
+    Portal,
+  );
+}
+
+Toast.defaultProps = {
+  locate: {
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+  },
+
+  translateX: 10,
+  translateY: 0,
+  animationTime: 300,
+  delayTime: 0,
+  color: '#6371c2',
+  hoveredColor: '#6681c2',
+};
+
+export function ExampleComponent({
   text,
   locate,
   onClick,
@@ -104,31 +157,27 @@ export default function Toast({
     translateY,
   });
 
+  const closeToast = () => {
+    setVisible(false);
+  };
+
   return (
-    <Container
+    <Toast
       locate={locate}
+      text={text}
       isVisible={isVisible}
-      translateX={locateX}
-      translateY={locateY}
       delayTime={delayTime}
+      translateX={translateX}
+      translateY={locateY}
+      onClick={closeToast}
       animationTime={animationTime}
       color={color}
-    >
-      {text}
-      <XMarkImage
-        onClick={() => {
-          onClick();
-          setVisible(false);
-        }}
-        hoveredColor={hoveredColor}
-      >
-        X
-      </XMarkImage>
-    </Container>
+      hoveredColor={hoveredColor}
+    />
   );
 }
 
-Toast.defaultProps = {
+ExampleComponent.defaultProps = {
   locate: {
     left: 0,
     right: 0,
