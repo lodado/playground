@@ -8,6 +8,7 @@
     "p5": "^1.4.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-is": "^18.2.0",
     "react-query": "^3.34.18",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
@@ -46,6 +47,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-storybook": "^0.5.10",
     "postcss": "^8.4.14",
+    "postcss-import": "^14.1.0",
     "prettier": "^2.5.1",
     "typescript": "^4.7.4",
     "webpack": "^5.72.0"
@@ -84,5 +86,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "packageManager": "yarn@3.2.1"
 }
